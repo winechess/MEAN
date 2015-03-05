@@ -1,0 +1,28 @@
+{
+  "name": "MEAN",
+  "version": "0.0.3",
+  "description": "Project that implement all chapters in MEAN book",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/winechess/MEAN.git"
+  },
+  "keywords": [
+    "MongoDB",
+    "Express",
+    "AngularJS",
+    "Node.js"
+  ],
+  "author": "Sergei Vinichenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/winechess/MEAN/issues"
+  },
+  "homepage": "https://github.com/winechess/MEAN",
+  "dependencies": {
+    "express": "^4.12.2"
+  }
+}
