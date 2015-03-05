@@ -33,7 +33,8 @@ module.exports = function () {
     app.set('views', './app/views');
     app.set('view engine', 'ejs');
 
-    require('../app/routes/index.server.routes.js')(app);
+    require('../app/routes/index.server.routes')(app);
+    require('../app/routes/user.server.routes')(app);
 
     app.use(express.static('./public'));
     return app;
