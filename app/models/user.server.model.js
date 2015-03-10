@@ -18,7 +18,16 @@ var UserSchema = new Schema({
         unique: true,
         required: true
     },
-    password: String,
+    password: {
+        type: String,
+        required: true,
+        validate: [
+            function (password) {
+                return password.length >= 6;
+            },
+            'Password should be longer than 6'
+        ]
+    },
     created: {
         type: Date,
         default: Date.now()
