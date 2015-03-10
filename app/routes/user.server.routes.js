@@ -15,4 +15,9 @@ module.exports = function (app) {
         .put(users.update)
         .delete(users.delete);
 
+    app.param('username', users.userByUsername);
+    app.route('/users/find/by/username/:username')
+        .get(users.read);
+
+
 };

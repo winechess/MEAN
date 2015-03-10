@@ -58,3 +58,14 @@ exports.delete = function (req, res, next) {
         }
     })
 };
+
+exports.userByUsername = function (req, res, next, username) {
+    User.findOneByUsername(username, function (err, user) {
+        if (err) {
+            return next(err);
+        } else {
+            req.user = user;
+            next();
+        }
+    })
+};
