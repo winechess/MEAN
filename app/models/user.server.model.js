@@ -43,6 +43,11 @@ UserSchema.statics.findOneByUsername = function (username, callback) {
     this.findOne({username: new RegExp(username, 'i')}, callback);
 };
 
+//custom instance methods
+UserSchema.methods.authenticate = function (password) {
+    return this.password === password;
+};
+
 UserSchema.set('toJSON', {getters: true, virtuals: true});
 
 mongoose.model('User', UserSchema);
