@@ -4,6 +4,36 @@
 var User = require('mongoose').model('User');
 var passport = require('passport');
 
+
+exports.saveOAuthUserProfile = function (req, profile, done) {
+    User.findOne(({
+        provider: profile.provider,
+        providerId: profile.providerId
+    }, function (err, user) {
+        if (err) {
+            return done(err);
+        } else {
+            if (!user) {
+                var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
+                User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+                    profile.username = availableUsername;
+                    user = new User(profile);
+                    user.save(function (err) {
+                        if (err) {
+                            var message = _this.getErrorMessage(err);
+                            req.flash('error', message);
+                            return res.redirect('/signup');
+                        }
+                        return done(err, user);
+                    })
+                })
+            } else {
+                return done(err, user);
+            }
+        }
+    }));
+};
+
 var getErrorMessage = function (err) {
     var message = '';
     if (err.code) {
@@ -48,34 +78,34 @@ exports.renderSignup = function (req, res, next) {
 };
 
 exports.signup = function (req, res, next) {
-    if(!req.user){
+    if (!req.user) {
         var user = new User(req.body);
         user.provider = 'local';
 
         user.save(function (err) {
 
-            if(err){
+            if (err) {
                 var message = getErrorMessage(err);
                 req.flash('error', message);
                 return res.redirect('/signup');
             }
 
             req.login(user, function (err) {
-                if(err){
+                if (err) {
                     return next(err);
                 }
                 return res.redirect('/');
             });
         });
-    }else{
+    } else {
         return res.redirect('/');
     }
 };
 
-exports.signOut = function(req, res, next){
+exports.signOut = function (req, res, next) {
     req.logout();
     res.redirect('/');
-}
+};
 
 exports.create = function (req, res, next) {
 

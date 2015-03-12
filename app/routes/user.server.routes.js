@@ -34,5 +34,9 @@ module.exports = function (app) {
 
     app.route('/signout').get(users.signOut);
 
-
+    app.route('/oauth/facebook').get(passport.authenticate('facebook', {failureRedirect: '/signin', scope: ['email']}));
+    app.route('/oauth/facebook/callback').get(passport.authenticate('facebook', {
+        failureRedirect: '/signin',
+        successRedirect: '/'
+    }));
 };
