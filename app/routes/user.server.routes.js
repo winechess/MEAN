@@ -35,16 +35,51 @@ module.exports = function (app) {
     app.route('/signout').get(users.signOut);
 
     //Facebook
-    app.route('/oauth/facebook').get(passport.authenticate('facebook', {failureRedirect: '/signin', scope: ['email']}));
-    app.route('/oauth/facebook/callback').get(passport.authenticate('facebook', {
-        failureRedirect: '/signin',
-        successRedirect: '/'
-    }));
+    app.route('/oauth/facebook')
+        .get(passport.authenticate('facebook', {
+            failureRedirect: '/signin',
+            scope: ['email']
+        }), function (req, res) {
+            res.redirect('/');
+        }
+    );
+    app.route('/oauth/facebook/callback')
+        .get(passport.authenticate('facebook', {
+            failureRedirect: '/signin'
+        }), function (req, res) {
+            res.redirect('/');
+        }
+    );
 
     //Twitter
-    app.route('/oauth/twitter').get(passport.authenticate('twitter', {failureRedirect: '/signin'}));
+    app.route('/oauth/twitter')
+        .get(passport.authenticate('twitter', {
+            failureRedirect: '/signin'
+        })
+    );
     app.route('/oauth/twitter/callback')
-        .get(passport.authenticate('twitter', {failureRedirect: '/signin'}), function (req, res) {
+        .get(passport.authenticate('twitter', {
+            failureRedirect: '/signin'
+        }), function (req, res) {
+            res.redirect('/');
+        }
+    );
+
+
+    //Google
+    app.route('/oauth/google')
+        .get(passport.authenticate('google', {
+            failureRedirect: '/signin',
+            scope: [
+                'https://www.googleapis.com/auth/userinfo.profile',
+                'https://www.googleapis.com/auth/userinfo.email'
+            ]
+        })
+    );
+    app.route('/oauth/google/callback')
+        .get(passport.authenticate('google', {
+            failureRedirect: '/signin'
+        }), function (req, res) {
             res.redirect('/');
         }
     );
