@@ -13,9 +13,7 @@ module.exports = function () {
     });
 
     passport.deserializeUser(function(id, done){
-        User.findById(id, function (err, user) {
-            console.log(err);
-            console.log(user);
+        User.findById(id, '-salt -password', function (err, user) {
             done(err, user);
         });
     });
