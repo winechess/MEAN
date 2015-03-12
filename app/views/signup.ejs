@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <%= title %>
+    </title>
+</head>
+<body>
+
+<% for(var i in messages){ %>
+<div class="flash">
+    <% messages[i] %>
+</div>
+<% } %>
+
+<form action="/signup" method="post">
+    <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" name="firstName" id="firstName"/>
+    </div>
+    <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" name="lastName" id="firstName"/>
+    </div>
+    <div>
+        <label for="email">Email:</label>
+        <input type="text" name="email" id="email"/>
+    </div>
+    <div>
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username"/>
+    </div>
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Sign up"/>
+    </div>
+</form>
+<div><a href="/oauth/facebook">Sign in with facebook</a></div>
+<div><a href="/oauth/twitter">Sign in with twitter</a></div>
+<div><a href="/oauth/google">Sign in with google</a></div>
+<div><a href="/oauth/vk">Sign in with vk</a></div>
+</body>
+</html>
