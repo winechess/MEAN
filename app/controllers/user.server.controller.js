@@ -6,7 +6,7 @@ var passport = require('passport');
 
 
 exports.saveOAuthUserProfile = function (req, profile, done) {
-    User.findOne(({
+    User.findOne({
         provider: profile.provider,
         providerId: profile.providerId
     }, function (err, user) {
@@ -14,8 +14,11 @@ exports.saveOAuthUserProfile = function (req, profile, done) {
             return done(err);
         } else {
             if (!user) {
+                console.log("USer not found");
                 var possibleUsername = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
+                console.log("Possible username: " + possibleUsername);
                 User.findUniqueUsername(possibleUsername, null, function (availableUsername) {
+                    console.log("Available username: " + availableUsername);
                     profile.username = availableUsername;
                     user = new User(profile);
                     user.save(function (err) {
@@ -28,10 +31,11 @@ exports.saveOAuthUserProfile = function (req, profile, done) {
                     })
                 })
             } else {
+                console.log("User found with profile.provider = " + profile.provider + " and profile.providerId = " + profile.providerId);
                 return done(err, user);
             }
         }
-    }));
+    });
 };
 
 var getErrorMessage = function (err) {

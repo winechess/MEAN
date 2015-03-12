@@ -34,9 +34,18 @@ module.exports = function (app) {
 
     app.route('/signout').get(users.signOut);
 
+    //Facebook
     app.route('/oauth/facebook').get(passport.authenticate('facebook', {failureRedirect: '/signin', scope: ['email']}));
     app.route('/oauth/facebook/callback').get(passport.authenticate('facebook', {
         failureRedirect: '/signin',
         successRedirect: '/'
     }));
+
+    //Twitter
+    app.route('/oauth/twitter').get(passport.authenticate('twitter', {failureRedirect: '/signin'}));
+    app.route('/oauth/twitter/callback')
+        .get(passport.authenticate('twitter', {failureRedirect: '/signin'}), function (req, res) {
+            res.redirect('/');
+        }
+    );
 };
