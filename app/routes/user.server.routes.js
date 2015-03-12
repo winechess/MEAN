@@ -39,9 +39,7 @@ module.exports = function (app) {
         .get(passport.authenticate('facebook', {
             failureRedirect: '/signin',
             scope: ['email']
-        }), function (req, res) {
-            res.redirect('/');
-        }
+        })
     );
     app.route('/oauth/facebook/callback')
         .get(passport.authenticate('facebook', {
@@ -78,6 +76,21 @@ module.exports = function (app) {
     );
     app.route('/oauth/google/callback')
         .get(passport.authenticate('google', {
+            failureRedirect: '/signin'
+        }), function (req, res) {
+            res.redirect('/');
+        }
+    );
+
+
+    //VK
+    app.route('/oauth/vk')
+        .get(passport.authenticate('vkontakte', {
+            failureRedirect: '/signin'
+        })
+    );
+    app.route('/oauth/vk/callback')
+        .get(passport.authenticate('vkontakte', {
             failureRedirect: '/signin'
         }), function (req, res) {
             res.redirect('/');
