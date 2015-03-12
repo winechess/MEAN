@@ -19,5 +19,10 @@ module.exports = {
         clientID: '810458430363-ppalfpgp3975m8jr9g1q163mgdsn4lr8.apps.googleusercontent.com',
         clientSecret: 'faZ7q3J0n2bDlNAhl471dQwm',
         callbackURL: 'http://localhost:3000/oauth/google/callback'
+    },
+    vk: {
+        clientID: '4824344',
+        clientSecret: 'uvBe7YBcmsIgVtnRACKk',
+        callbackURL: 'http://localhost:3000/oauth/vk/callback'
     }
 };

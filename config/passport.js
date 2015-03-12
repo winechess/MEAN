@@ -22,4 +22,5 @@ module.exports = function () {
     require('./strategies/facebook')();
     require('./strategies/twitter')();
     require('./strategies/google')();
+    require('./strategies/vk')();
 };
